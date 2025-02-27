@@ -1,0 +1,52 @@
+@import "@/styles/theme.module.scss";
+
+.main {
+	background-color: var(--background-color);
+	width: 100%;
+	min-height: 100vh;
+}
+
+.heroContainer {
+	background-color: var(--secondary-background-color);
+}
+
+.hero {
+	background-color: var(--secondary-color);
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	gap: 2rem;
+	width: 960px;
+	min-height: 320px;
+	margin: auto;
+}
+
+.heroImage {}
+
+.heroText {
+	max-width: 600px;
+}
+
+.heroText h1 {
+	color: var(--secondary-text-color);
+}
+
+.heroText p {
+	font-size: 1rem;
+	color: var(--secondary-text-color);
+}
+
+.comicsSection {
+	width: 960px;
+	margin: auto;
+}
+
+.comicsGrid {
+	display: flex;
+	gap: 1.5rem;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	width: auto;
+	white-space: nowrap;
+	margin: 1rem 0;
+}

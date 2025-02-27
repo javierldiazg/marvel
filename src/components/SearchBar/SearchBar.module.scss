@@ -1,0 +1,20 @@
+@import "@/styles/theme.module.scss";
+
+.container {
+	margin: 2rem 0;
+	width: 100%;
+
+	input {
+		width: 100%;
+		border-top: none;
+		border-right: none;
+		border-left: none;
+		border-radius: initial;
+		border-color: var(--secondary-color);
+	}
+
+	.resultsCount {
+		margin-top: 1rem;
+		margin-left: 0.5rem;
+	}
+}
