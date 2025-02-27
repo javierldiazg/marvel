@@ -1,0 +1,36 @@
+@import "@/styles/theme.module.scss";
+
+.header {
+	height: var(--header-height);
+	background-color: var(--secondary-color);
+	color: var(--text-color);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem 6rem;
+}
+
+.logoContainer {
+	display: flex;
+	align-items: center;
+}
+
+.logoContainer img {
+	width: auto;
+}
+
+.nav {
+	display: flex;
+	gap: 1rem;
+}
+
+.nav a {
+	color: var(--secondary-text-color);
+	text-decoration: none;
+	font-weight: 500;
+	transition: color 0.3s ease;
+}
+
+.nav a:hover {
+	color: #ffd700;
+}

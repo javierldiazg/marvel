@@ -1,0 +1,27 @@
+@import "@/styles/theme.module.scss";
+
+.container {
+	flex: 0 0 auto;
+	width: 200px;
+	scroll-snap-align: start;
+	text-align: center;
+	padding-bottom: 1rem;
+}
+
+.info {
+	text-align: left;
+
+	h6 {
+		margin-top: 1rem;
+		font-size: 1rem;
+		line-height: 1.2;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		white-space: normal;
+		word-break: break-word;
+		max-height: 2.4em;
+	}
+}

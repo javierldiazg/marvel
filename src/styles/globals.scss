@@ -1,0 +1,123 @@
+@import "./theme.module.scss";
+
+body {
+	font-family: var(--font-family);
+	background-color: var(--background-color);
+	color: var(--text-color);
+	margin: 0;
+	padding: 0;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-family);
+	font-weight: bold;
+	line-height: 1.2;
+	margin-bottom: 0.5rem;
+}
+
+h1 {
+	font-size: 2.5rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 1.75rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+}
+
+h5 {
+	font-size: 1.25rem;
+}
+
+h6 {
+	font-size: 1rem;
+}
+
+/* Links */
+a {
+	color: var(--primary-color);
+	text-decoration: none;
+	transition: color 0.2s ease-in-out;
+
+	&:hover {
+		color: --darken(var(--primary-color), 10%);
+		text-decoration: underline;
+	}
+}
+
+/* Botones */
+button {
+	font-family: var(--font-family);
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.2s ease-in-out;
+}
+
+button.primary {
+	background-color: var(--primary-color);
+	color: var(--text-color);
+
+	&:hover {
+		background-color: --darken(var(--primary-color), 10%);
+	}
+}
+
+button.secondary {
+	background-color: var(--secondary-color);
+	color: var(--text-color);
+
+	&:hover {
+		background-color: --lighten(var(--secondary-color), 10%);
+	}
+}
+
+/* Listas */
+ul,
+ol {
+	padding-left: 1.5rem;
+}
+
+ul {
+	list-style-type: disc;
+}
+
+ol {
+	list-style-type: decimal;
+}
+
+/* Inputs y Formularios */
+input,
+textarea,
+select {
+	font-family: var(--font-family);
+	font-size: 1rem;
+	padding: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	outline: none;
+
+	&:focus {
+		border-color: var(--primary-color);
+		box-shadow: 0 0 5px rgba(var(--primary-color), 0.5);
+	}
+}
+
+p {
+	font-size: 0.875rem;
+}

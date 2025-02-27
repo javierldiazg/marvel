@@ -1,0 +1,21 @@
+@import "@/styles/theme.module.scss";
+
+.main {
+	background-color: var(--background-color);
+	min-height: 100vh;
+	padding: 1rem 6rem;
+}
+
+.grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(2, 1fr);
+
+	@media (min-width: 768px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	@media (min-width: 1200px) {
+		grid-template-columns: repeat(7, 1fr);
+	}
+}
