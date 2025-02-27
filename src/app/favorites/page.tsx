@@ -17,7 +17,7 @@ export default function FavoritesPage() {
 
   return (
     <main className={styles.main}>
-      <h2>FAVORITOS</h2>
+      <h2>FAVORITES</h2>
       <div className={styles.searchContainer}>
         <input
           type="text"
@@ -32,7 +32,7 @@ export default function FavoritesPage() {
       </div>
       {filteredFavorites.length === 0 ? (
         <p className={styles.empty}>
-          No hay personajes favoritos con ese nombre.
+          There are no favorite characters with that name.
         </p>
       ) : (
         <div className={styles.grid}>
