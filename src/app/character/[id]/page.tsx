@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useCharacterDetail } from "@/hooks/useCharacterDetail";
 import { ComicCard } from "@/components/ComicCard";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import styles from "./CharacterDetail.module.scss";
 
 export default function CharacterPage() {
@@ -25,7 +26,12 @@ export default function CharacterPage() {
             height={320}
           />
           <div className={styles.heroText}>
-            <h1>{character.name}</h1>
+            <div className={styles.heroTitle}>
+              <h1>{character.name}</h1>
+              <div className={styles.buttonWrapper}>
+                <FavoriteButton character={character} type="detail" />
+              </div>
+            </div>
             <p>{character.description || ""}</p>
           </div>
         </div>

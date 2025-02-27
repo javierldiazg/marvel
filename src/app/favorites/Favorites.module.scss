@@ -3,7 +3,15 @@
 .main {
 	background-color: var(--background-color);
 	min-height: 100vh;
-	padding: 1rem 6rem;
+	padding: 1rem;
+
+	@media (min-width: 768px) {
+		padding: 1rem 3rem;
+	}
+
+	@media (min-width: 1200px) {
+		padding: 1rem 6rem;
+	}
 }
 
 .grid {

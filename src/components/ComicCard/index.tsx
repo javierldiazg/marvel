@@ -18,8 +18,8 @@ export const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
       <Image
         src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
         alt={comic.title}
-        width={200}
-        height={300}
+        width={180}
+        height={270}
       />
       <div className={styles.info}>
         <h6>{comic.title}</h6>
