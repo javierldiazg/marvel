@@ -7,8 +7,19 @@ import { ComicCard } from "@/components/ComicCard";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import styles from "./CharacterDetail.module.scss";
 
+type Comic = {
+  id: number;
+  title: string;
+  description: string;
+  dates: { date: string }[];
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+};
+
 export default function CharacterPage() {
-  const { id } = useParams(); // Obtiene el id de la URL
+  const { id } = useParams();
   const { character, comics, isLoadingCharacter, isLoadingComics } =
     useCharacterDetail(id as string);
 
@@ -43,7 +54,7 @@ export default function CharacterPage() {
             <p>Loading comics...</p>
           ) : (
             <>
-              {comics.map((comic) => (
+              {comics.map((comic: Comic) => (
                 <ComicCard key={comic.id} comic={comic} />
               ))}
             </>
