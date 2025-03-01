@@ -1,9 +1,7 @@
-@import "@/styles/theme.module.scss";
-
 .header {
-	height: var(--header-height);
-	background-color: var(--secondary-color);
-	color: var(--text-color);
+	height: 60px;
+	background-color: var(--secondary-background-color);
+	color: var(--secondary-color);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
