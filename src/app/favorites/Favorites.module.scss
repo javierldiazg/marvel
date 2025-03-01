@@ -1,7 +1,5 @@
-@import "@/styles/theme.module.scss";
-
 .main {
-	background-color: var(--background-color);
+	background-color: var(--primary-background-color);
 	min-height: 100vh;
 	padding: 1rem;
 
@@ -31,12 +29,12 @@
 .empty {
 	text-align: center;
 	font-size: 1.2rem;
-	color: var(--text-color);
+	color: var(--secondary-color);
 }
 
 .searchContainer {
 	margin: 2rem 0;
-    width: 100%;
+	width: 100%;
 }
 
 .searchInput {
@@ -45,7 +43,7 @@
 	border-right: none;
 	border-left: none;
 	border-radius: initial;
-	border-color: var(--secondary-color);
+	border-color: var(--primary-color);
 }
 
 .resultsCount {
