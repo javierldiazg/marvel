@@ -5,7 +5,7 @@ interface FavoriteProps {
   type?: "detail" | "list";
 }
 
-export const Favorite: React.FC<FavoriteProps> = ({ isFavorite, type }) => {
+export const Favorite = ({ isFavorite, type }: FavoriteProps) => {
   const size =
     type === "detail" ? { width: 24, height: 22 } : { width: 12, height: 10 };
 

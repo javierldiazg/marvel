@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCharacters } from "@/services/marvel";
+import { getCharacters } from "@/services/characterRepository";
 import { CharacterType} from "../utils/constants";
 
 export const useCharacters = (searchTerm: string) => {

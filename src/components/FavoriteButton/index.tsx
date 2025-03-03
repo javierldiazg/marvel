@@ -13,10 +13,7 @@ interface FavoriteButtonProps {
   type?: "detail" | "list";
 }
 
-export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
-  character,
-  type,
-}) => {
+export const FavoriteButton = ({ character, type }: FavoriteButtonProps) => {
   const { state, dispatch } = useFavorites();
   const isFavorite = state.favorites.some((fav) => fav.id === character.id);
 

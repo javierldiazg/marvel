@@ -1,9 +1,9 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useCharacters } from "./useCharacters";
-import { getCharacters } from "@/services/marvel";
+import { getCharacters } from "@/services/characterRepository";
 
-jest.mock("../services/marvel", () => ({
+jest.mock("../services/characterRepository", () => ({
   getCharacters: jest.fn(),
 }));
 
