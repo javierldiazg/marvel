@@ -1,7 +1,10 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useCharacterDetail } from "../hooks/useCharacterDetail";
-import { getCharacterById, getCharacterComics } from "@/services/characterRepository";
+import {
+  getCharacterById,
+  getCharacterComics,
+} from "@/services/characterRepository";
 
 jest.mock("../services/characterRepository", () => ({
   getCharacterById: jest.fn(),
@@ -26,7 +29,7 @@ describe("useCharacterDetail hook", () => {
     jest.clearAllMocks();
   });
 
-  test("debe retornar loading inicialmente", async () => {
+  test("should return loading initially", async () => {
     (getCharacterById as jest.Mock).mockResolvedValueOnce(null);
     (getCharacterComics as jest.Mock).mockResolvedValueOnce([]);
 
@@ -38,7 +41,7 @@ describe("useCharacterDetail hook", () => {
     expect(result.current.isLoadingComics).toBe(true);
   });
 
-  test("debe retornar los datos cuando la consulta es exitosa", async () => {
+  test("should return data when the query is successful", async () => {
     const mockCharacter = { id: "1011334", name: "Spider-Man" };
     const mockComics = [{ id: "123", title: "Amazing Spider-Man" }];
 
@@ -56,7 +59,7 @@ describe("useCharacterDetail hook", () => {
     expect(result.current.comics).toEqual(mockComics);
   });
 
-  test("debe manejar errores correctamente", async () => {
+  test("must handle errors correctly", async () => {
     (getCharacterById as jest.Mock).mockRejectedValueOnce(
       new Error("Character not found")
     );

@@ -5,7 +5,7 @@ const API_URL = "https://gateway.marvel.com/v1/public";
 const PUBLIC_KEY = "67e84d35c83b5c5d7ef077399435bf16";
 const PRIVATE_KEY = "7be8f3aec879f7bd32851b6289c35e280728dc61";
 
-const getAuthParams = () => {
+export const getAuthParams = () => {
   const ts = new Date().getTime().toString();
   const hash = md5(ts + PRIVATE_KEY + PUBLIC_KEY);
   return { ts, apikey: PUBLIC_KEY, hash };
@@ -65,11 +65,11 @@ export const getCharacterComics = async (id: string) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error(
-        "Error fetching character:",
+        "Error fetching comics:",
         error.response?.data || error.message
       );
     } else {
-      console.error("Error fetching character:", error);
+      console.error("Error fetching comics:", error);
     }
     return [];
   }
