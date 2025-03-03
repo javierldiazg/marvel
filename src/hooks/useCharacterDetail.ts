@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCharacterById, getCharacterComics } from "@/services/marvel";
+import { getCharacterById, getCharacterComics } from "@/services/characterRepository";
 
 export const useCharacterDetail = (id: string) => {
   const { data: character, isLoading: isLoadingCharacter } = useQuery({

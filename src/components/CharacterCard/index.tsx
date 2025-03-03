@@ -13,11 +13,11 @@ interface CharacterCardProps {
   };
 }
 
-export const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
+export const CharacterCard = ({ character }: CharacterCardProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/character/${character.id}`);
+    router.push(`/characters/${character.id}`);
   };
 
   return (

@@ -12,7 +12,7 @@ interface ComicCardProps {
   };
 }
 
-export const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
+export const ComicCard = ({ comic }: ComicCardProps) => {
   return (
     <div key={comic.id} className={styles.container}>
       <Image

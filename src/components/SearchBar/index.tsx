@@ -6,10 +6,7 @@ interface SearchBarProps {
   resultsCount: number;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({
-  onSearch,
-  resultsCount,
-}) => {
+export const SearchBar = ({ onSearch, resultsCount }: SearchBarProps) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {

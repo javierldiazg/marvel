@@ -48,7 +48,7 @@ describe("CharacterCard", () => {
 
     fireEvent.click(screen.getByRole("button"));
 
-    expect(push).toHaveBeenCalledWith("/character/1");
+    expect(push).toHaveBeenCalledWith("/characters/1");
   });
 
   test("shows the favorite button with the character name", () => {
