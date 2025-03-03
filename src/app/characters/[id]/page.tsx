@@ -27,7 +27,7 @@ export default function CharacterPage() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.heroContainer}>
+      <div className={styles.heroContainer} data-testid="hero-container">
         <div className={styles.hero}>
           <Image
             className={styles.heroImage}

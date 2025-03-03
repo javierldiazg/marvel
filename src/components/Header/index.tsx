@@ -24,7 +24,7 @@ export const Header = () => {
         <Link href="/favorites" className={styles.favoritesLink}>
           <Image
             src="/images/heart-icon.png"
-            alt="Marvel Logo"
+            alt="Heart Icon"
             width={24}
             height={22}
             priority

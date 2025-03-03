@@ -73,6 +73,25 @@ describe("CharacterPage", () => {
     expect(screen.getByTestId("favorite-button")).toBeInTheDocument();
   });
 
+  test("renders the character correctly without description", () => {
+    (useCharacterDetail as jest.Mock).mockReturnValue({
+      character: {
+        id: 1001,
+        name: "Spider-Man",
+        description: "",
+        thumbnail: { path: "http://example.com/spiderman", extension: "jpg" },
+      },
+      comics: [],
+      isLoadingCharacter: false,
+      isLoadingComics: false,
+    });
+
+    render(<CharacterPage />);
+
+    expect(screen.getByText("Spider-Man")).toBeInTheDocument();
+    expect(screen.queryByText("Friendly Neighborhood Spider-Man")).toBeNull();
+  });
+
   test("render comics when available", () => {
     (useCharacterDetail as jest.Mock).mockReturnValue({
       character: {
@@ -96,6 +115,24 @@ describe("CharacterPage", () => {
     expect(screen.getByText("Ultimate Spider-Man #1")).toBeInTheDocument();
   });
 
+  test("does not render comic cards when comics are empty", () => {
+    (useCharacterDetail as jest.Mock).mockReturnValue({
+      character: {
+        id: 1001,
+        name: "Spider-Man",
+        description: "Friendly Neighborhood Spider-Man",
+        thumbnail: { path: "http://example.com/spiderman", extension: "jpg" },
+      },
+      comics: [],
+      isLoadingCharacter: false,
+      isLoadingComics: false,
+    });
+
+    render(<CharacterPage />);
+
+    expect(screen.queryByTestId("comic-card")).toBeNull();
+  });
+
   test("displays 'Loading comics...' when isLoadingComics is true", () => {
     (useCharacterDetail as jest.Mock).mockReturnValue({
       character: {
@@ -112,5 +149,27 @@ describe("CharacterPage", () => {
     render(<CharacterPage />);
 
     expect(screen.getByText("Loading comics...")).toBeInTheDocument();
+  });
+
+  test("renders styles and image container", () => {
+    (useCharacterDetail as jest.Mock).mockReturnValue({
+      character: {
+        id: 1001,
+        name: "Spider-Man",
+        description: "Friendly Neighborhood Spider-Man",
+        thumbnail: { path: "http://example.com/spiderman", extension: "jpg" },
+      },
+      comics: [],
+      isLoadingCharacter: false,
+      isLoadingComics: false,
+    });
+
+    render(<CharacterPage />);
+
+    const heroContainer = screen.getByTestId("hero-container");
+    expect(heroContainer).toBeInTheDocument();
+
+    const heroImage = screen.getByRole("img", { name: "Spider-Man" });
+    expect(heroImage).toBeInTheDocument();
   });
 });

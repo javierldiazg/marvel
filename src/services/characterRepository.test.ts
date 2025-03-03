@@ -53,6 +53,32 @@ describe("Marvel API service", () => {
     expect(result).toEqual(mockResponse.data.data.results);
   });
 
+  test("getCharacters should return a list of characters even if nameStartsWith is empty", async () => {
+    const mockResponse = {
+      data: {
+        data: {
+          results: [
+            { id: 1, name: "Spider-Man" },
+            { id: 2, name: "Iron Man" },
+          ],
+        },
+      },
+    };
+    mockedAxios.get.mockResolvedValueOnce(mockResponse);
+
+    const result = await getCharacters("");
+
+    expect(mockedAxios.get).toHaveBeenCalledWith(`${API_URL}/characters`, {
+      params: expect.objectContaining({
+        apikey: expect.any(String),
+        ts: expect.any(String),
+        hash: "mockedHash",
+        limit: 50,
+      }),
+    });
+    expect(result).toEqual(mockResponse.data.data.results);
+  });
+
   test("getCharacters should return an empty array if there is an error", async () => {
     mockedAxios.get.mockRejectedValueOnce(new Error("API error"));
 
@@ -138,8 +164,34 @@ describe("Marvel API service", () => {
     expect(mockedAxios.get).toHaveBeenCalled();
     expect(result).toEqual([]);
     expect(console.error).toHaveBeenCalledWith(
-      "Error fetching character:",
+      "Error fetching comics:",
       expect.any(Error)
     );
+  });
+
+  test("getCharacterComics should return an empty array if there are no comics", async () => {
+    const mockResponse = {
+      data: {
+        data: {
+          results: [],
+        },
+      },
+    };
+    mockedAxios.get.mockResolvedValueOnce(mockResponse);
+
+    const result = await getCharacterComics("1011334");
+
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      `${API_URL}/characters/1011334/comics`,
+      {
+        params: expect.objectContaining({
+          apikey: expect.any(String),
+          ts: expect.any(String),
+          hash: "mockedHash",
+          limit: 10,
+        }),
+      }
+    );
+    expect(result).toEqual([]);
   });
 });
