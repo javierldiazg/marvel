@@ -1,18 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { useFavorites } from "@/context/FavoritesContext";
 import { CharacterCard } from "@/components/CharacterCard";
 import styles from "./Favorites.module.scss";
 
 export default function FavoritesPage() {
-  const favorites = useSelector(
-    (state: RootState) => state.favorites.favorites
-  );
+  const { state } = useFavorites();
   const [search, setSearch] = useState("");
-  const filteredFavorites = favorites.filter((character) =>
-    character.name.toLowerCase().includes(search.toLowerCase())
+  const filteredFavorites = state.favorites.filter((character) =>
+    character?.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (

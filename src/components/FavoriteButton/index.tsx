@@ -1,8 +1,6 @@
 "use client";
 
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { toggleFavorite } from "@/store/favoritesSlice";
+import { useFavorites } from "@/context/FavoritesContext";
 import { Favorite } from "../Favorite";
 import styles from "./FavoriteButton.module.scss";
 
@@ -19,18 +17,15 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   character,
   type,
 }) => {
-  const dispatch = useDispatch();
-  const favorites = useSelector(
-    (state: RootState) => state.favorites.favorites
-  );
-  const isFavorite = favorites.some((fav) => fav.id === character.id);
+  const { state, dispatch } = useFavorites();
+  const isFavorite = state.favorites.some((fav) => fav.id === character.id);
 
   return (
     <button
       className={`${styles.favoriteButton} ${isFavorite ? styles.active : ""}`}
       onClick={(e) => {
         e.stopPropagation();
-        dispatch(toggleFavorite(character));
+        dispatch({ type: "TOGGLE_FAVORITE", payload: character });
       }}
     >
       <Favorite isFavorite={isFavorite} type={type} />

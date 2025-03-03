@@ -2,10 +2,9 @@
 
 import { ReactNode } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
-import { store } from "@/store";
-import { Header } from "@/components/Header";
 import { queryClient } from "../lib/reactQueryClient";
+import { FavoritesProvider } from "@/context/FavoritesContext";
+import { Header } from "@/components/Header";
 import "@/styles/globals.scss";
 
 export default function RootLayout({
@@ -14,13 +13,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider store={store}>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <FavoritesProvider>
             <Header />
             {children}
             <footer />
-          </QueryClientProvider>
-        </Provider>
+          </FavoritesProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

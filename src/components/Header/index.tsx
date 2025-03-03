@@ -2,14 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { useFavorites } from "@/context/FavoritesContext";
 import styles from "./Header.module.scss";
 
 export const Header = () => {
-  const favoriteCount = useSelector(
-    (state: RootState) => state.favorites.favorites.length
-  );
+  const { state } = useFavorites();
+  const favoriteCount = state.favorites.length;
 
   return (
     <header className={styles.header}>
