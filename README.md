@@ -2,11 +2,9 @@
 
 Este proyecto es una aplicación web desarrollada con ReactJS bajo Next.js que permite explorar personajes del universo Marvel. La aplicación implementa búsquedas, favoritos y detalles de personajes, asegurando una experiencia fluida y eficiente gracias al uso de React, Context API, TanStack React Query y estrategias de caché.
 
-
 ## Deploy en Vercel
 
 La aplicación esta desplegada y se pude ver en [Marvel Characters App](https://marvel-rouge-delta.vercel.app/characters)
-
 
 ## Tecnologías utilizadas
 
@@ -24,12 +22,11 @@ La aplicación esta desplegada y se pude ver en [Marvel Characters App](https://
 
 - Jest + React Testing Library: Pruebas unitarias y de integración.
 
-
 ## Arquitectura y diseño
 
 Para una arquitectura escalable y basada en patrones de diseño modernos, se considera lo siguiente:
 
-### 1. Domain-Driven Design (DDD)
+### Domain-Driven Design (DDD)
 
 Identificación y organización de la aplicación en módulos según los siguientes dominios Characters, Favorites y Common. Cada uno de estos dominios tiene su propia estructura y lógica de negocio bien definida.
 
@@ -39,8 +36,7 @@ Identificación y organización de la aplicación en módulos según los siguien
 
 - Common Domain: Maneja funcionalidades transversales (a futuro).
 
-
-### Estructura de Directorios según DDD 
+#### Estructura de Directorios según DDD
 
 Permite que el modelo de código refleje de forma precisa los conceptos del negocio, cada módulo tiene su propósito claro (UI, estado, lógica de negocio).
 
@@ -58,35 +54,60 @@ src/
 ├── utils/                  # Utilidades generales, funciones auxiliares
 ```
 
-### Desacople de los Componentes UI de la Lógica de Negocio
+#### Desacople de los Componentes UI de la Lógica de Negocio
 
 El código UI (como CharacterCard, ComicCard, Favorite, FavoriteButton, Header o SearchBar) se mantiene dentro de components/. Estos componentes reciben datos a través de props o contextos y no tienen lógica de negocio compleja.
 
+#### Contexto y Estado Global
 
-### Contexto y Estado Global
+El contexto (context/) puede seguir utilizándose para manejar el estado global, esto permitira estructurarlo según los contextos de dominio. Por ejemplo, actualmente se maneja el estado relacionado con los favoritos FavoritesContext y a futuro se podría tener un CharactersContext para manejar el estado relacionado con los personajes.
 
-El contexto (context/) puede seguir utilizándose para manejar el estado global, esto permitira estructurarlo según los contextos de dominio. Por ejemplo, actualmente se maneja el estado relacionado con los favoritos FavoriteContext y a futuro se podría tener un CharacterContext para manejar el estado relacionado con los personajes.
+Ejemplo de uso FavoritesContext para obtener los personajes favoritos y renderizar la Card de personaje.
 
+```bash
+import { useFavorites } from "@/context/FavoritesContext";
 
-### Uso de hooks personalizados
+const { state } = useFavorites();
+const filteredFavorites = state.favorites.filter((character) =>
+    character?.name?.toLowerCase().includes(search.toLowerCase())
+);
+
+{filteredFavorites.map((character) => (
+    <CharacterCard key={character.id} character={character} />
+))}
+```
+
+#### Uso de hooks personalizados
 
 Los hooks personalizados mantienen encapsulada la lógica de negocio y son reutilizables, cada hook tiene una única responsabilidad (principio de responsabilidad única)
 
-- useCharacters: Gestiona la carga de personajes desde la API.
+- useCharacters: Gestiona la carga de personajes desde la API de Marvel.
 
-- useCharacterDetail: Gestiona la carga de personajes por ID y los comics asociados a ese personaje desde la API.
+- useCharacterDetail: Gestiona la carga de personajes por ID y los comics asociados a ese personaje desde la API de Marvel.
 
+En los hooks se emplea React Query para optimizar busquedas y evitar peticiones redundantes a la API.
 
-### Servicios de Dominio
+Ejemplo de uso custom hook useCharacters para obtener y renderizar la Card de personaje.
+
+```bash
+import { useCharacters } from "@/hooks/useCharacters";
+
+const { characters, isLoading, isError, error } = useCharacters(searchTerm);
+
+{characters.map((character: CharacterType) => (
+    <CharacterCard key={character.id} character={character} />
+))}
+```
+
+#### Servicios de Dominio
 
 Esta divido en repositorios específicos por dominio y mantiene la lógica de acceso a datos encapsulada y centrada en cada contexto del dominio.
 
 - characterRepository.ts
 
+#### Por que DDD
 
-### Por que DDD
-
-- Alineación con el negocio: DDD permite que el modelo de código refleje de forma precisa los conceptos del negocio. 
+- Alineación con el negocio: DDD permite que el modelo de código refleje de forma precisa los conceptos del negocio.
 
 - Escalabilidad: A medida que crezca el codigo, DDD facilita la expansión se puede agregar nuevos contextos delimitados sin que afecten a los existentes. Esto hace que la aplicación sea más escalable y fácil de mantener.
 
@@ -96,33 +117,34 @@ Esta divido en repositorios específicos por dominio y mantiene la lógica de ac
 
 - Testabilidad: Cada capa es fácilmente testeable por separado.
 
+### Gestión de estado eficiente con Context API, Local Storage y TanStack React Query
 
-### 2. Gestión de estado eficiente con Context API, Local Storage y TanStack React Query
+#### Context API
 
-#### Context API: Se usa para estados globales ligeros como el almacenamiento de favoritos.
+Se usa para estados globales ligeros como el almacenamiento de favoritos.
 
 - Simplicidad:
-    * No requiere configuración adicional como store.ts, slices, o configureStore.
-    * Se elimina la necesidad de useDispatch y useSelector, simplificando los componentes.
+
+  - No requiere configuración adicional como store.ts, slices, o configureStore.
+  - Se elimina la necesidad de useDispatch y useSelector, simplificando los componentes.
 
 - Menos dependencias:
-    * Evita instalar Redux Toolkit y react-redux, reduciendo el tamaño del bundle.
+
+  - Evita instalar Redux Toolkit y react-redux, reduciendo el tamaño del bundle.
 
 - Más adecuado para este caso:
-    * El estado de favoritos es una lista relativamente pequeña, por lo que el rendimiento no se ve afectado.
-    * Context API + useReducer permite un manejo eficiente sin la sobrecarga.
+  - El estado de favoritos es una lista relativamente pequeña, por lo que el rendimiento no se ve afectado.
+  - Context API + useReducer permite un manejo eficiente sin la sobrecarga.
 
+#### Tanstack React Query
 
-#### Local Storage: 
+Maneja el fetching y caching de datos de la API, minimizando peticiones innecesarias y mejorando la eficiencia. Se implementa caché en distintos niveles para optimizar rendimiento:
 
-- Los favoritos se mantienen después de recargar la página.
+- Client-side caching con TanStack React Query, evitando peticiones redundantes a la API de Marvel. Esto reduce tiempos de carga y mejora la experiencia del usuario.
 
-- Es una implementación simple y eficiente sin dependencias adicionales.
+- Session Storage para persistencia de búsquedas recientes.
 
-- No afecta el rendimiento de la aplicación, ya que solo usamos localStorage cuando es necesario.
-
-
-#### Tanstack React Query: Maneja el fetching y caching de datos de la API, minimizando peticiones innecesarias y mejorando la eficiencia.
+- Revalidación de datos: La API refresca datos de forma controlada según estrategias configuradas en queryClient.
 
 - Mejor organización, queryClient centralizado.
 
@@ -130,21 +152,29 @@ Esta divido en repositorios específicos por dominio y mantiene la lógica de ac
 
 - Configuración global optimizada, defaultOptions de QueryClient aplicados.
 
+Ejemplo de uso de cache para obtener un personaje al servicio getCharacterById de la API de Marvel.
 
-### 3. Uso de caché para optimizar rendimiento
+```bash
+import { useQuery } from "@tanstack/react-query";
 
-Se implementa caché en distintos niveles:
+const { data: character, isLoading: isLoadingCharacter } = useQuery({
+    queryKey: ["character", id],
+    queryFn: () => getCharacterById(id),
+    enabled: !!id,
+});
 
-- Client-side caching con TanStack React Query, evitando peticiones redundantes a la API de Marvel.
+return { character, isLoadingCharacter };
+```
 
-- Session Storage para persistencia de búsquedas recientes.
+#### Local Storage:
 
-- Revalidación de datos: La API refresca datos de forma controlada según estrategias configuradas en queryClient.
+- Los favoritos se mantienen después de recargar la página.
 
-Esto reduce tiempos de carga y mejora la experiencia del usuario.
+- Es una implementación simple y eficiente sin dependencias adicionales.
 
+- No afecta el rendimiento de la aplicación, ya que solo usamos localStorage cuando es necesario.
 
-## Ejemplo de Tests
+## Test Unitarios
 
 El proyecto incluye pruebas unitarias y de integración con Jest y React Testing Library. Ejemplo de test para el componente de búsqueda:
 
@@ -164,25 +194,28 @@ test('You must update the input when the user types', async () => {
 ## Instalación y ejecución
 
 Clonar el repositorio:
+
 ```bash
 git clone https://github.com/javierldiazg/marvel.git
 cd marvel
 ```
 
 Instalar dependencias:
+
 ```bash
 npm install
 ```
 
 Ejecutar en desarrollo:
+
 ```bash
 npm run dev
 ```
 
 Abrir [http://localhost:3000](http://localhost:3000) con su navegador para ver la App.
 
-
 Ejecutar tests:
+
 ```bash
 npm test
 ```
